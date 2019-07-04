@@ -1,0 +1,123 @@
+body, h1, h2 {
+    margin:0;
+    padding:0;
+   }
+   body {
+    background:#039be5;
+    font-family: Arial, sans-serif;
+   }
+   h1 {
+    padding:10px;
+    background:#ffcc00;
+   }
+   
+   /*---------------------------*/
+   /* Read products */
+   /*---------------------------*/
+   #product-list {
+    margin:0;
+    padding:0;
+    width:180px;
+    float:left;
+    margin:10px;
+    border:1px solid #4fc3fc;
+   }
+   
+   #product-list h2 {
+    padding:10px;
+    margin:0;
+    color:white;
+   }
+   
+   #product-list li {
+    padding:5px 10px;
+    border-top:1px solid #4fc3fc;
+    cursor: pointer;
+    color:white;
+    font-style: italic;
+    list-style: none 
+   }
+   
+   #product-list li:hover {
+    background: #4fc3fc;
+   }
+   
+   #product-detail {
+    float:left;
+    width:200px;
+    margin:10px;
+    margin-left:0;
+    padding:10px;
+    border:1px solid #4fc3fc;
+    color:white;
+   }
+   
+   
+   
+   /* Add product Module */
+   #add-product-module {
+       width:30px;
+       margin-bottom: 1px;
+       margin-left: 10px;
+       margin-top:10px;
+   }
+   
+   #add-product-module #open-add-product-form-btn {
+       background: #54bb7d;
+       font-size: 1.5em;
+       color: white;
+       padding-bottom: 5px;
+   }
+   
+   #add-product-module form {
+       position: absolute;
+       padding: 10px;
+       width: 150px;
+       background-color: #e1e1e1;
+       border: 1px solid #999;
+       display: none;
+   }
+   
+   #add-product-module form input {
+       width: 97%;
+       margin: 2px 0;
+   }
+   
+   #add-product-module form button {
+       background: #54bb7d;
+       font-size: 1em;
+       padding: 0px 10px;
+       color: white;
+       margin-top: 10px;
+   }
+   
+   
+   #add-product-module:hover form {
+       display: block;
+   }
+   
+   
+   /*Edit*/
+   #edit-product-module {
+       display: none;
+       position: absolute;
+       background-color: #e1e1e1;
+       border: 1px solid #999;
+       top:149px;
+       left: 160px;
+       padding: 10px;
+       width: 150px;
+   }
+   
+   #product-list li:hover~#edit-product-module {
+       display: none;
+   }
+   
+   
+   #edit-product-module form button {
+       background: #54bb7d;
+       font-size: 1em;
+       padding: 0px 10px;
+       color: white;
+       margin-top: 10px;
+   }
