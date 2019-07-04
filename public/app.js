@@ -117,14 +117,17 @@ function addproductBtnClicked() {
 
 	// loop through View to get the data for the model 
 	for (let i = 0, len = addproductInputsUI.length; i < len; i++) {
-
+		
 		let key = addproductInputsUI[i].getAttribute('data-key');
 		let value = addproductInputsUI[i].value;
+		if(i == 2){
+			value = parseFloat(addproductInputsUI[i].value);
+		}		
 		newproduct[key] = value;
-		console.log(x);
+		console.log(i + " - " + value);
 	}
 
-	console.log(newproduct);
+	console.log(addproductInputsUI[2].value);
 	productsRef.child(x).set(newproduct);	
 
 
