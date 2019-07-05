@@ -1,18 +1,54 @@
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <title>Firebase CRUD Javascript</title>
-  <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CarComprasWEB</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style/bootstrap/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="https://trello-attachments.s3.amazonaws.com/5cc7453cd8d53c0f13ad91f4/512x512/e089693af7d4cbba69aa90201eb35849/logo.png" />
 </head>
 
 <body>
 
-  <h1>PRODUTOS CADASTRADOS</h1>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      CarCompras WEB
+    </a>
+  </nav>
+
+  <div id="top" class="row">
+    <div class="col-md-8">
+        <a class="navbar-brand">
+        <img src="https://trello-attachments.s3.amazonaws.com/5cc7453cd8d53c0f13ad91f4/512x512/e089693af7d4cbba69aa90201eb35849/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Sistema de Cadastro
+        </a>
+    </div> 
+    <div class="col-md-4">
+        <a style="margin-top: 2%; background-color: #106E5D" class="btn btn-primary pull-right h2" href="#" onclick="chamarModalNovo();">Novo Item</a> 
+    </div> 
+
+</div>
+<!-- edit product module -->
+  <!-- <section id="edit-product-module">
+    <form>
+      <h3>Editar Produto</h3>
+      <input type="hidden" class="edit-productid">
+      Nome:<br>
+      <input type='text' data-key='nameProd' class='edit-product-input'><br>
+      Preço:<br>
+      <input type='number' data-key='priceProd' class='edit-product-input'><br>
+      <button type='button' id="edit-product-btn">Salvar</button>
+      <button type='button' id="cancel-product-btn">Cancelar</button>
+    </form>
+  </section> -->
+
+
 
 
   <!-- add product module -->
-  <section id="add-product-module">
+  <!-- <section id="add-product-module">
     <button id="open-add-product-form-btn">+</button>
     <form>
       <h3>Novo Produto</h3>
@@ -25,30 +61,101 @@
       <button type='button' id="add-product-btn">Adicionar</button>
       <button type='button' id="cancel-product-btn">Cancelar</button>
     </form>
-  </section>
+  </section> -->
 
-  <!-- edit product module -->
-  <section id="edit-product-module">
-    <form>
-      <h3>Editar Produto</h3>
-      <input type="hidden" class="edit-productid">
-      Nome:<br>
-      <input type='text' data-key='nameProd' class='edit-product-input'><br>
-      Preço:<br>
-      <input type='number' data-key='priceProd' class='edit-product-input'><br>
-      <button type='button' id="edit-product-btn">Salvar</button>
-      <button type='button' id="cancel-product-btn">Cancelar</button>
-    </form>
-  </section>
-
+  
 
   <!-- show product module -->
-  <ul id="product-list"></ul>
-  <div id="product-detail"></div>
+  <!-- <ul id="product-list"></ul> -->
+  <!-- <div id="product-detail"></div> -->
+
+  <div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active"  style="background-color: #106E5D">
+      Produtos
+    </a>
+   
+  </div>
+  <ul id="product-list">
+    <li id="product-list li"></li>
+  </ul>
+  
+  
+  <h2>Detalhes</h2>
+  <div style="align-content: center" id="product-detail"></div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modalNovo">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Novo Produdo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                        <form>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Codigo:</label>
+                          <input type="text"id='codBar' data-key='codBar' class='product-input' placeholder="Codigo de Barras">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput2">Nome:</label>
+                          <input type="text" data-key='nameProd' class='product-input' placeholder="Nome">
+                        </div>
+                        <div class="form-group">
+                                <label for="formGroupExampleInput2">Preço:</label>
+                                <input type="number" data-key='priceProd' class='product-input' placeholder="Preço">
+                              </div>
+                      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type='button' id="add-product-btn">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modalEditar">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <section id="edit-product-module">
+            <form>
+              <h3>Editar Produto</h3>
+              <input type="hidden" class="edit-productid">
+              Nome:<br>
+              <input type='text' data-key='nameProd' class='edit-product-input'><br>
+              Preço:<br>
+              <input type='number' data-key='priceProd' class='edit-product-input'><br>
+              <button type='button' id="edit-product-btn">Salvar</button>
+              <button type='button' id="cancel-product-btn">Cancelar</button>
+            </form>
+          </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+    function chamarModalNovo() {
+        $("#modalNovo").modal('show')
+    }
+</script>
+
+<script>
+  function chamarModalExibir() {
+      $("#modalExibir").modal('show')
+  }
+</script>
+  
 
 
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
   <script type="text/javascript" src="app.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 

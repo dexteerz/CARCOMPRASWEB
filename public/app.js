@@ -1,5 +1,4 @@
-
-// Your web app's Firebase configuration
+// CONFIGURAÇÕES DE CONEXÃO FIREBASE
 const config = {
 	apiKey: "AIzaSyBoTRlfosL2xrcFlkDTy8sU0WJIfxqUOX4",
 	authDomain: "projeto-2-8a6b3.firebaseapp.com",
@@ -9,18 +8,19 @@ const config = {
 	messagingSenderId: "503783157743",
 	appId: "1:503783157743:web:3d3e64e8eb9dd9f2"
 };
-// Initialize Firebase
+// INICIALIZANDO FIREBASE
 firebase.initializeApp(config);
 
 
-// Firebase Database Reference and the child
+// FIREBASE DATABASE REFERENCE E "TABELA" 
 const dbRef = firebase.database().ref();
 const productsRef = dbRef.child('products');
 
 readproductData();
 
+
 // --------------------------
-// READ
+// LISTAR PRODUTO
 // --------------------------
 function readproductData() {
 
@@ -37,17 +37,17 @@ function readproductData() {
 
 			let $li = document.createElement("li");
 
-			// edit icon
+			// ICONE DE EDITAR
 			let editIconUI = document.createElement("span");
 			editIconUI.class = "edit-product";
-			editIconUI.innerHTML = "  ✎";
+			editIconUI.innerHTML = "  📝";
 			editIconUI.setAttribute("productid", key);
 			editIconUI.addEventListener("click", editButtonClicked)
 
-			// delete icon
+			// ICONE DE DELETAR
 			let deleteIconUI = document.createElement("span");
 			deleteIconUI.class = "delete-product";
-			deleteIconUI.innerHTML = "  ☓";
+			deleteIconUI.innerHTML = "  ❌";
 			deleteIconUI.setAttribute("productid", key);
 			deleteIconUI.addEventListener("click", deleteButtonClicked)
 
@@ -67,9 +67,10 @@ function readproductData() {
 }
 
 
-
+// --------------------------
+// AO SELECIONAR UM ITEM LISTADO
+// --------------------------
 function productClicked(e) {
-
 
 	var productID = e.target.getAttribute("product-key");
 
@@ -93,72 +94,56 @@ function productClicked(e) {
 
 
 
-
-
 // --------------------------
-// ADD
+// ADICIONAR NOVO PRODUTO
 // --------------------------
-
 const addproductBtnUI = document.getElementById("add-product-btn");
 addproductBtnUI.addEventListener("click", addproductBtnClicked)
-
-
 
 function addproductBtnClicked() {
 
 	const productsRef = dbRef.child('products');
-
 	const addproductInputsUI = document.getElementsByClassName("product-input");
 
-	// this object will hold the new product information
+	// ESTE OBJETO IRÁ GUARDAR AS INFORMAÇÕES PARA O NOVO PRODUTO
 	let newproduct = {};
-
 	var x = document.getElementById("codBar").value;
 
-	// loop through View to get the data for the model 
+	// LOOP QUE RECEBERÁ AS INFORMAÇÕES DO MODAL
 	for (let i = 0, len = addproductInputsUI.length; i < len; i++) {
-		
 		let key = addproductInputsUI[i].getAttribute('data-key');
 		let value = addproductInputsUI[i].value;
-		if(i == 2){
+		if (i == 2) {
 			value = parseFloat(addproductInputsUI[i].value);
-		}		
+		}
 		newproduct[key] = value;
-		console.log(i + " - " + value);
 	}
 
-	console.log(addproductInputsUI[2].value);
-	productsRef.child(x).set(newproduct);	
-
-
-
+	// SALVA NO FIREBASE
+	productsRef.child(x).set(newproduct);
 }
 
 
 // --------------------------
-// DELETE
+// DELETAR PRODUTO
 // --------------------------
 function deleteButtonClicked(e) {
-
 	e.stopPropagation();
-
 	var productID = e.target.getAttribute("productid");
-
 	const productRef = dbRef.child('products/' + productID);
-
+	// DELETA NO FIREBASE
 	productRef.remove();
 
 }
 
 
 // --------------------------
-// EDIT
+// EDITAR PRODUTO
 // --------------------------
 function editButtonClicked(e) {
+	document.getElementById('modalEditar').style.display = "block";
 
-	document.getElementById('edit-product-module').style.display = "block";
-
-	//set product id to the hidden input field
+	// DEFINE O CÓDIGO DE BARRA QUE IRÁ SER EDITADO NO CAMPO HIDDEN NO HTML
 	document.querySelector(".edit-productid").value = e.target.getAttribute("productid");
 
 	const productRef = dbRef.child('products/' + e.target.getAttribute("productid"));
@@ -172,13 +157,12 @@ function editButtonClicked(e) {
 		for (var i = 0, len = editproductInputsUI.length; i < len; i++) {
 
 			var key = editproductInputsUI[i].getAttribute("data-key");
+
 			editproductInputsUI[i].value = snap.val()[key];
+
 		}
 
 	});
-
-
-
 
 	const saveBtn = document.querySelector("#edit-product-btn");
 	saveBtn.addEventListener("click", saveproductBtnClicked)
@@ -194,13 +178,20 @@ function saveproductBtnClicked(e) {
 
 	const editproductInputsUI = document.querySelectorAll(".edit-product-input");
 
-	editproductInputsUI.forEach(function (textField) {
+
+	editproductInputsUI.forEach(function (textField, index) {
 		let key = textField.getAttribute("data-key");
-		let value = textField.value;
-		editedproductObject[textField.getAttribute("data-key")] = textField.value
+		if (textField.getAttribute("data-key") == "priceProd") {
+			let value = textField.value;
+		} else {
+			let value = parseFloat(textField.value);
+		}
+		editedproductObject[textField.getAttribute("data-key")] = textField.value;
+
+
 	});
 
-
+	editedproductObject['priceProd'] = parseFloat(editedproductObject['priceProd']);
 
 	productRef.update(editedproductObject);
 
